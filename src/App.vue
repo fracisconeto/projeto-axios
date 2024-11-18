@@ -1,16 +1,35 @@
-<script setup>
-// import axios from 'axios';
-
-</script>
-
+<script setup></script>
 <template>
-  Chave da API
-4c9bdb0b51dd5ec3169b8f38c825e915
-Token de Leitura da API
-eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YzliZGIwYjUxZGQ1ZWMzMTY5YjhmMzhjODI1ZTkxNSIsIm5iZiI6MTczMTM1NDc4OS4wMzI0MTU0LCJzdWIiOiI2NzMyNWQ1ODYxNjI2YWMxMDZiZTg3MWIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.te2CtfZz2gZvROkRJ6T7TbyU7BCud4Fn8N8ZZXbrPJk
-
+  <header>
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/filmes">Filmes</router-link>
+      <router-link to="/tv">Programas de TV</router-link>
+    </nav>
+  </header>
+  <main>
+    <router-view />
+  </main>
 </template>
-
 <style scoped>
+header {
+  height: 3rem;
+  display: flex;
+  background-color: black;
+  color: #fff;
+  font-size: 1.2rem;
+  padding-left: 2rem;
+}
 
+nav {
+  column-gap: 2rem;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
 </style>
