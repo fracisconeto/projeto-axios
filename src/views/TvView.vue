@@ -2,25 +2,16 @@
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
 import Loading from 'vue-loading-overlay';
+import { useGenreStore } from '@/stores/genre';
 
-const genres = ref([]);
+const genreStore = useGenreStore();
 const Tvs = ref([]);
 const isLoading = ref(false);
 
-
-
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
-
-
-function getGenreName(id) {
-    const genero = genres.value.find((genre) => genre.id === id);
-    return genero.name;
-  }
-
-
 onMounted(async () => {
-  const response = await api.get('genre/tv/list?language=pt-BR');
-  genres.value = response.data.genres;
+  isLoading.value = true;
+  await genreStore.getAllGenres('movie');
+  isLoading.value = false;
 });
 
 const listTv = async (genreId) => {
@@ -31,15 +22,19 @@ const listTv = async (genreId) => {
       language: 'pt-BR'
     }
   });
+
   Tvs.value = response.data.results
   isLoading.value = false;
 };
+
+const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
+
 </script>
 
 <template>
   <h1>Programas de TV</h1>
   <ul class="genre-list">
-    <li v-for="genre in genres" :key="genre.id" @click="listTv(genre.id)" class="genre-item">
+    <li v-for="genre in genreStore.genres" :key="genre.id" @click="listTv(genre.id)" class="genre-item">
       {{ genre.name }}
     </li>
   </ul>
@@ -52,16 +47,12 @@ const listTv = async (genreId) => {
       <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.title" />
       <div class="movie-details">
         <p class="movie-title">{{ tv.name }}</p>
-        <p class="movie-release-date">{{ formatDate(tv.first_air_date   ) }}</p> 
-     <p class="movie-genres">
-  <span
-    v-for="genre_id in tv.genre_ids"
-    :key="genre_id"
-    @click="listTv(genre_id)"
-  >
-    {{ getGenreName(genre_id) }} 
-  </span>
-</p>
+        <p class="movie-release-date">{{ formatDate(tv.first_air_date) }}</p>
+        <p class="movie-genres">
+          <span v-for="genre_id in Tvs.genre_ids" :key="genre_id" @click="listTv(genre_id)">
+            {{ genreStore.getGenreName(genre_id) }}
+          </span>
+        </p>
       </div>
 
     </div>

@@ -5,17 +5,16 @@ import Loading from 'vue-loading-overlay';
 import { useGenreStore } from '@/stores/genre.js';
 
 const genreStore = useGenreStore();
-const genres = ref([]);
+
 const movies = ref([]);
 const isLoading = ref(false);
 
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 onMounted(async () => {
   isLoading.value = true;
   await genreStore.getAllGenres('movie');
   isLoading.value = false;
 });
-  
+
 const listMovies = async (genreId) => {
   isLoading.value = true;
   const response = await api.get('discover/movie', {
@@ -28,10 +27,7 @@ const listMovies = async (genreId) => {
   isLoading.value = false;
 };
 
-function getGenreName(id) {
-  const genero = genres.value.find((genre) => genre.id === id);
-  return genero.name;
-}
+const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 
 </script>
 
@@ -55,7 +51,7 @@ function getGenreName(id) {
         <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
         <p class="movie-genres">
           <span v-for="genre_id in movie.genre_ids" :key="genre_id" @click="listMovies(genre_id)">
-            {{ getGenreName(genre_id) }}
+            {{ genreStore.getGenreName(genre_id) }}
           </span>
         </p>
       </div>
@@ -67,14 +63,12 @@ function getGenreName(id) {
 
 
 <style scoped>
-/* Reseta margens e paddings para garantir uma base limpa */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo geral do corpo */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -82,7 +76,6 @@ body {
   padding: 20px;
 }
 
-/* Cabeçalho */
 h1 {
   font-size: 2rem;
   text-align: center;
@@ -90,7 +83,6 @@ h1 {
   color: #444;
 }
 
-/* Lista de gêneros */
 .genre-list {
   display: flex;
   flex-wrap: wrap;
@@ -112,7 +104,6 @@ h1 {
   background-color: #004d99;
 }
 
-/* Layout para exibição de filmes */
 .movie-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -120,7 +111,6 @@ h1 {
   justify-items: center;
 }
 
-/* Cartão de filme */
 .movie-card {
   background-color: #fff;
   border-radius: 10px;
@@ -143,7 +133,6 @@ h1 {
   border-bottom: 2px solid #eee;
 }
 
-/* Detalhes do filme */
 .movie-details {
   padding: 15px;
 }
@@ -190,7 +179,6 @@ h1 {
   box-shadow: 0 0 0.5rem #748708;
 }
 
-/* Estilos responsivos */
 @media (max-width: 768px) {
   .movie-list {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

@@ -14,13 +14,12 @@
 </template>
 
 <style scoped>
-/* Estilo para o cabeçalho */
 header {
   height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #111; /* Cor de fundo escura */
+  background-color: #111; 
   color: #fff;
   font-size: 1.2rem;
   padding: 0 2rem;
@@ -33,7 +32,6 @@ nav {
   width: 100%;
 }
 
-/* Estilo dos links de navegação */
 .nav-item {
   text-decoration: none;
   color: #fff;
@@ -46,28 +44,26 @@ nav {
 }
 
 .nav-item:hover {
-  background-color: #ff6347; /* Cor vibrante de laranja */
-  transform: translateY(-3px); /* Efeito de elevação ao passar o mouse */
+  background-color: #ff6347; 
+  transform: translateY(-3px); 
 }
 
 .nav-item:active {
-  background-color: #e55347; /* Cor mais escura quando clicado */
-  transform: translateY(1px); /* Efeito de "pressionamento" */
+  background-color: #e55347; 
+  transform: translateY(1px); 
 }
 
 .nav-item.active {
-  color: #ff6347; /* Cor de destaque para o item ativo */
+  color: #ff6347; 
   font-weight: bold;
 }
 
-/* Estilos para o conteúdo da página principal */
 main {
   padding: 2rem;
   background-color: #f4f4f4;
   min-height: 100vh;
 }
 
-/* Responsividade para telas menores */
 @media (max-width: 768px) {
   header {
     height: 3.5rem;
