@@ -3,10 +3,9 @@ import { defineStore } from 'pinia';
 import api from '@/plugins/axios';
 
 export const useGenreStore = defineStore('genre', () => {
-    const state = reactive({
-        genres: [],
-        currentGenreId: null,
-      });   
+  const state = reactive({
+    genres: [],
+  });
 
   const genres = computed(() => state.genres);
   const getGenreName = (id) =>
@@ -17,16 +16,5 @@ export const useGenreStore = defineStore('genre', () => {
     state.genres = response.data.genres;
   };
 
-  const currentGenreId = computed(() => state.currentGenreId);
-
-  const setCurrentGenreId = (genreId) => {
-    state.currentGenreId = genreId;
-  };
-  return {
-    genres,
-    getAllGenres,
-    getGenreName,
-    currentGenreId,
-    setCurrentGenreId,
-  };
+  return { genres, getAllGenres, getGenreName };
 });

@@ -2,26 +2,20 @@
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
 import Loading from 'vue-loading-overlay';
+import { useGenreStore } from '@/stores/genre.js';
 
-
-
+const genreStore = useGenreStore();
 const genres = ref([]);
 const movies = ref([]);
 const isLoading = ref(false);
 
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
-
-function getGenreName(id) {
-  const genero = genres.value.find((genre) => genre.id === id);
-  return genero.name;
-}
-
 onMounted(async () => {
-  const response = await api.get('genre/movie/list?language=pt-BR');
-  genres.value = response.data.genres;
+  isLoading.value = true;
+  await genreStore.getAllGenres('movie');
+  isLoading.value = false;
 });
-
-
+  
 const listMovies = async (genreId) => {
   isLoading.value = true;
   const response = await api.get('discover/movie', {
@@ -33,11 +27,18 @@ const listMovies = async (genreId) => {
   movies.value = response.data.results
   isLoading.value = false;
 };
+
+function getGenreName(id) {
+  const genero = genres.value.find((genre) => genre.id === id);
+  return genero.name;
+}
+
 </script>
+
 <template>
   <h1>Filmes</h1>
   <ul class="genre-list">
-    <li v-for="genre in genres" :key="genre.id" @click="listMovies(genre.id)" class="genre-item">
+    <li v-for="genre in genreStore.genres" :key="genre.id" @click="listMovies(genre.id)" class="genre-item">
       {{ genre.name }}
     </li>
   </ul>
