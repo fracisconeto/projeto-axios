@@ -1,47 +1,67 @@
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import api from '@/plugins/axios';
+import { ref, onMounted } from 'vue';
+import api from '@/plugins/axios';
+import Loading from 'vue-loading-overlay';
 
-  const genres = ref([]);
-  const Tvs = ref([]);
+const genres = ref([]);
+const Tvs = ref([]);
+const isLoading = ref(false);
 
 
-  onMounted(async () => {
-    const response = await api.get('genre/tv/list?language=pt-BR');
-    genres.value = response.data.genres;
+
+const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
+
+
+function getGenreName(id) {
+    const genero = genres.value.find((genre) => genre.id === id);
+    return genero.name;
+  }
+
+
+onMounted(async () => {
+  const response = await api.get('genre/tv/list?language=pt-BR');
+  genres.value = response.data.genres;
+});
+
+const listTv = async (genreId) => {
+  isLoading.value = true;
+  const response = await api.get('discover/tv', {
+    params: {
+      with_genres: genreId,
+      language: 'pt-BR'
+    }
   });
-
-  const listTv = async (genreId) => {
-      const response = await api.get('discover/tv', {
-          params: {
-              with_genres: genreId,
-              language: 'pt-BR'
-          }
-      });
-      Tvs.value = response.data.results
-  };
+  Tvs.value = response.data.results
+  isLoading.value = false;
+};
 </script>
 
 <template>
   <h1>Programas de TV</h1>
   <ul class="genre-list">
-    <li
-    v-for="genre in genres"
-    :key="genre.id"
-    @click="listTv(genre.id)"
-    class="genre-item"
-  >
-    {{ genre.name }}
-  </li>
+    <li v-for="genre in genres" :key="genre.id" @click="listTv(genre.id)" class="genre-item">
+      {{ genre.name }}
+    </li>
   </ul>
+
+  <loading v-model:active="isLoading" is-full-page />
+
   <div class="movie-list">
     <div v-for="tv in Tvs" :key="tv.id" class="movie-card">
 
       <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.title" />
       <div class="movie-details">
-        <p class="movie-title">{{ tv.noriginal_name }}</p>
-        <p class="movie-release-date">{{ tv.first_air_date }}</p>
-        <p class="movie-genres">{{ tv.with_genres }}</p>
+        <p class="movie-title">{{ tv.name }}</p>
+        <p class="movie-release-date">{{ formatDate(tv.first_air_date   ) }}</p> 
+     <p class="movie-genres">
+  <span
+    v-for="genre_id in tv.genre_ids"
+    :key="genre_id"
+    @click="listTv(genre_id)"
+  >
+    {{ getGenreName(genre_id) }} 
+  </span>
+</p>
       </div>
 
     </div>
@@ -50,14 +70,12 @@
 
 
 <style scoped>
-/* Reseta margens e paddings para garantir uma base limpa */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo geral do corpo */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -65,7 +83,6 @@ body {
   padding: 20px;
 }
 
-/* Cabeçalho */
 h1 {
   font-size: 2rem;
   text-align: center;
@@ -73,7 +90,6 @@ h1 {
   color: #444;
 }
 
-/* Lista de gêneros */
 .genre-list {
   display: flex;
   flex-wrap: wrap;
@@ -95,7 +111,6 @@ h1 {
   background-color: #004d99;
 }
 
-/* Layout para exibição de filmes */
 .movie-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -103,7 +118,6 @@ h1 {
   justify-items: center;
 }
 
-/* Cartão de filme */
 .movie-card {
   background-color: #fff;
   border-radius: 10px;
@@ -126,7 +140,6 @@ h1 {
   border-bottom: 2px solid #eee;
 }
 
-/* Detalhes do filme */
 .movie-details {
   padding: 15px;
 }
@@ -173,7 +186,6 @@ h1 {
   box-shadow: 0 0 0.5rem #748708;
 }
 
-/* Estilos responsivos */
 @media (max-width: 768px) {
   .movie-list {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
