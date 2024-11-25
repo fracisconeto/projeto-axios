@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-const title = ref("Bem-vindo ao Cinema!");
+const title = ref("Bem-vindo a Netflix!");
 const subtitle = ref("Explore os filmes mais populares e os lançamentos de sucesso");
 const buttonText = ref("Descubra Agora");
 
@@ -24,11 +24,10 @@ const handleClick = () => {
 </template>
 
 <style scoped>
-/* Estilo geral do container da home */
-
-
+*{
+  background-color: #000000;
+}
 .home-container {
-  background-color: #2c3e50; /* Cor sólida de fundo, que é elegante e moderna */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -36,73 +35,72 @@ const handleClick = () => {
   color: white;
   font-family: 'Arial', sans-serif;
   text-align: center;
+  padding: 20px;
 }
 
-/* Conteúdo principal da página */
+
 .content {
   padding: 40px;
-  background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+  background-color: rgba(0, 0, 0, 0.8); 
   border-radius: 10px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   max-width: 700px;
   width: 90%;
 }
 
-/* Título principal */
+
 h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 20px;
-  letter-spacing: 3px;
+  letter-spacing: 5px;
   animation: fadeIn 1.5s ease-out;
-  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+  text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.7);
+  color: #fff;
 }
 
-/* Subtítulo */
 p {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 20px;
   font-weight: 400;
   line-height: 1.6;
   animation: fadeIn 2s ease-out;
+  color: #b3b3b3;
 }
 
-/* Descrição adicional */
 .description {
   margin-bottom: 30px;
   font-size: 1.2rem;
   font-weight: 300;
   max-width: 600px;
   margin: 0 auto;
+  color: #ccc; 
 }
 
-/* Botão de ação */
+
 button {
   padding: 12px 24px;
-  font-size: 1.2rem;
-  background-color: #ff6347; /* Cor vibrante de laranja */
-  color: white;
+  font-size: 1.4rem;
+  background-color: #e50914; 
   border: none;
   border-radius: 50px;
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s, transform 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 
-/* Efeito no botão ao passar o mouse */
+
 button:hover {
-  background-color: #ff4500; /* Cor mais intensa ao passar o mouse */
-  transform: scale(1.1);
-}
+  background-color: #f40612; 
+  transform: scale(1.05); }
 
-/* Efeito no botão ao clicar */
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.98); 
 }
 
-/* Animação de FadeIn para títulos e textos */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -114,14 +112,32 @@ button:active {
   }
 }
 
-/* Responsividade para telas menores */
 @media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem; 
+  }
+
+  p {
+    font-size: 1.3rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
   h1 {
     font-size: 2rem;
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .description {
@@ -130,7 +146,8 @@ button:active {
 
   button {
     font-size: 1rem;
-    padding: 10px 20px;
+    padding: 8px 16px;
   }
 }
+
 </style>

@@ -16,14 +16,15 @@ onMounted(async () => {
 });
 
 const listMovies = async (genreId) => {
+  genreStore.setCurrentGenreId(genreId);
   isLoading.value = true;
   const response = await api.get('discover/movie', {
     params: {
       with_genres: genreId,
-      language: 'pt-BR'
-    }
+      language: 'pt-BR',
+    },
   });
-  movies.value = response.data.results
+  movies.value = response.data.results;
   isLoading.value = false;
 };
 
@@ -34,9 +35,17 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 <template>
   <h1>Filmes</h1>
   <ul class="genre-list">
-    <li v-for="genre in genreStore.genres" :key="genre.id" @click="listMovies(genre.id)" class="genre-item">
-      {{ genre.name }}
-    </li>
+    <li
+    v-for="genre in genreStore.genres"
+    :key="genre.id"
+    @click="listMovies(genre.id)"
+    class="genre-item"
+    :class="{ active: genre.id === genreStore.currentGenreId }"
+  >
+  
+    {{ genre.name }}
+  
+  </li>
   </ul>
 
   <loading v-model:active="isLoading" is-full-page />
@@ -50,9 +59,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
         <p class="movie-title">{{ movie.title }}</p>
         <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
         <p class="movie-genres">
-          <span v-for="genre_id in movie.genre_ids" :key="genre_id" @click="listMovies(genre_id)">
-            {{ genreStore.getGenreName(genre_id) }}
-          </span>
+          <span
+  v-for="genre_id in movie.genre_ids"
+  :key="genre_id"
+  @click="listMovies(genre_id)"
+  :class="{ active: genre_id === genreStore.currentGenreId }"
+>
+   {{ genreStore.getGenreName(genre_id) }} 
+</span>
+
         </p>
       </div>
     </div>
@@ -67,20 +82,22 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #141414; 
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
+  font-family: 'Arial', sans-serif;
+  background-color: #141414; 
+  color: #fff; 
   padding: 20px;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
-  color: #444;
+  color: #fff;
+  margin-bottom: 30px;
 }
 
 .genre-list {
@@ -91,105 +108,110 @@ h1 {
 }
 
 .genre-item {
-  background-color: #0066cc;
+  background-color: black; 
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 24px;
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
   transition: background-color 0.3s;
 }
 
 .genre-item:hover {
-  background-color: #004d99;
+  background-color: #e50914; 
 }
 
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 30px;
   justify-items: center;
 }
 
 .movie-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: black; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  width: 220px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+ 
+  border-radius: 0; 
 }
 
 .movie-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px); 
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
 }
 
 .movie-card img {
   width: 100%;
   height: auto;
-  border-bottom: 2px solid #eee;
 }
 
 .movie-details {
-  padding: 15px;
+  padding: 20px;
+  background-color: black; 
+  text-align: center;
 }
 
 .movie-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 8px;
+  color: #fff;
+  margin-bottom: 10px;
+  background-color: black;
 }
 
 .movie-release-date {
   font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 8px;
+  color: #aaa;
+  margin-bottom: 10px;
+  background-color: black;
+
 }
 
 .movie-genres {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.movie-genres {
+  font-size: 1rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0.5rem;
+  background-color: black;
+
 }
 
 .movie-genres span {
-  background-color: #748708;
-  border-radius: 0.5rem;
-  padding: 0.2rem 0.5rem;
+  background-color: #e50914; 
+  border-radius: 20px;
+  padding: 5px 15px;
   color: #fff;
-  font-size: 0.8rem;
   font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .movie-genres span:hover {
-  cursor: pointer;
-  background-color: #455a08;
-  box-shadow: 0 0 0.5rem #748708;
+  background-color: #f40612; 
+  box-shadow: 0 0 0.5rem rgba(229, 9, 20, 0.8);
 }
 
 @media (max-width: 768px) {
   .movie-list {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 
   h1 {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .genre-item {
     font-size: 0.9rem;
+  }
+
+  .movie-card {
+    width: 100%;
   }
 }
 
@@ -199,7 +221,7 @@ h1 {
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .genre-item {
@@ -211,4 +233,5 @@ h1 {
     width: 100%;
   }
 }
+
 </style>
