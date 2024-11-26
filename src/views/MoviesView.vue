@@ -3,9 +3,10 @@ import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
 import Loading from 'vue-loading-overlay';
 import { useGenreStore } from '@/stores/genre.js';
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const genreStore = useGenreStore();
-
 const movies = ref([]);
 const isLoading = ref(false);
 
@@ -30,22 +31,20 @@ const listMovies = async (genreId) => {
 
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 
+function openMovie(movieId) {
+  router.push({ name: 'MovieDetails', params: { movieId } });
+}
 </script>
 
 <template>
   <h1>Filmes</h1>
   <ul class="genre-list">
-    <li
-    v-for="genre in genreStore.genres"
-    :key="genre.id"
-    @click="listMovies(genre.id)"
-    class="genre-item"
-    :class="{ active: genre.id === genreStore.currentGenreId }"
-  >
-  
-    {{ genre.name }}
-  
-  </li>
+    <li v-for="genre in genreStore.genres" :key="genre.id" @click="listMovies(genre.id)" class="genre-item"
+      :class="{ active: genre.id === genreStore.currentGenreId }">
+
+      {{ genre.name }}
+
+    </li>
   </ul>
 
   <loading v-model:active="isLoading" is-full-page />
@@ -54,19 +53,16 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
   <div class="movie-list">
     <div v-for="movie in movies" :key="movie.id" class="movie-card">
 
-      <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title" />
+      <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title"
+        @click="openMovie(movie.id)" />
       <div class="movie-details">
         <p class="movie-title">{{ movie.title }}</p>
         <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
         <p class="movie-genres">
-          <span
-  v-for="genre_id in movie.genre_ids"
-  :key="genre_id"
-  @click="listMovies(genre_id)"
-  :class="{ active: genre_id === genreStore.currentGenreId }"
->
-   {{ genreStore.getGenreName(genre_id) }} 
-</span>
+          <span v-for="genre_id in movie.genre_ids" :key="genre_id" @click="listMovies(genre_id)"
+            :class="{ active: genre_id === genreStore.currentGenreId }">
+            {{ genreStore.getGenreName(genre_id) }}
+          </span>
 
         </p>
       </div>
@@ -82,13 +78,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #141414; 
+  background-color: #141414;
 }
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #141414; 
-  color: #fff; 
+  background-color: #141414;
+  color: #fff;
   padding: 20px;
 }
 
@@ -108,7 +104,7 @@ h1 {
 }
 
 .genre-item {
-  background-color: black; 
+  background-color: black;
   color: #fff;
   padding: 12px 24px;
   margin: 5px;
@@ -119,28 +115,28 @@ h1 {
 }
 
 .genre-item:hover {
-  background-color: #e50914; 
+  background-color: #e50914;
 }
 
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 30px;
   justify-items: center;
 }
 
 .movie-card {
-  background-color: black; 
+  background-color: black;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
- 
-  border-radius: 0; 
+
+  border-radius: 0;
 }
 
 .movie-card:hover {
-  transform: translateY(-10px); 
+  transform: translateY(-10px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
 }
 
@@ -151,7 +147,7 @@ h1 {
 
 .movie-details {
   padding: 20px;
-  background-color: black; 
+  background-color: black;
   text-align: center;
 }
 
@@ -183,7 +179,7 @@ h1 {
 }
 
 .movie-genres span {
-  background-color: #e50914; 
+  background-color: #e50914;
   border-radius: 20px;
   padding: 5px 15px;
   color: #fff;
@@ -193,7 +189,7 @@ h1 {
 }
 
 .movie-genres span:hover {
-  background-color: #f40612; 
+  background-color: #f40612;
   box-shadow: 0 0 0.5rem rgba(229, 9, 20, 0.8);
 }
 
@@ -233,5 +229,4 @@ h1 {
     width: 100%;
   }
 }
-
 </style>

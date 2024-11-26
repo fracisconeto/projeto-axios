@@ -3,7 +3,7 @@
 <template>
   <header>
     <div class="header-container">
-      <h1>Netflix</h1>
+      <h1>Notflux</h1>
       <nav>
         <router-link to="/" class="nav-item">Home</router-link>
         <router-link to="/filmes" class="nav-item">Filmes</router-link>
@@ -19,9 +19,7 @@
 <style scoped>
 
 
- *{
-  background-color: #141414 ;
- }
+
 header {
   height: 6rem; 
   display: flex;

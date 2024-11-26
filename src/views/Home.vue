@@ -1,7 +1,8 @@
 <script setup>
+
 import { ref } from 'vue';
 
-const title = ref("Bem-vindo a Netflix!");
+const title = ref("Bem-vindo a Notflux!");
 const subtitle = ref("Explore os filmes mais populares e os lançamentos de sucesso");
 const buttonText = ref("Descubra Agora");
 
@@ -36,6 +37,7 @@ const handleClick = () => {
   font-family: 'Arial', sans-serif;
   text-align: center;
   padding: 20px;
+  background-color:  #141414;;
 }
 
 
