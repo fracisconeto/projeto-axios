@@ -47,7 +47,13 @@ function openMovie(movieId) {
     </li>
   </ul>
 
+
+
   <loading v-model:active="isLoading" is-full-page />
+
+
+
+
 
 
   <div class="movie-list">
@@ -94,6 +100,7 @@ h1 {
   text-align: center;
   color: #fff;
   margin-bottom: 30px;
+  margin-top: 8rem;
 }
 
 .genre-list {
@@ -101,17 +108,22 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 20px;
+  list-style: none;
+  text-decoration: none;
+  
 }
 
 .genre-item {
   background-color: black;
   color: #fff;
-  padding: 12px 24px;
+  padding: 8px 18px;
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s;
+
+
 }
 
 .genre-item:hover {
@@ -149,6 +161,7 @@ h1 {
   padding: 20px;
   background-color: black;
   text-align: center;
+
 }
 
 .movie-title {
@@ -168,7 +181,7 @@ h1 {
 }
 
 .movie-genres {
-  font-size: 1rem;
+  font-size: 0.75rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

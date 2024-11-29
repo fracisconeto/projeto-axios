@@ -34,7 +34,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 <template>
   <h1>Programas de TV</h1>
   <ul class="genre-list">
-    
+
     <li v-for="genre in genreStore.genres" :key="genre.id" @click="listTv(genre.id)" class="genre-item">
       {{ genre.name }}
     </li>
@@ -66,13 +66,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #141414; 
+  background-color: #141414;
 }
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #141414; 
-  color: #fff; 
+  background-color: #141414;
+  color: #fff;
   padding: 20px;
 }
 
@@ -82,6 +82,7 @@ h1 {
   text-align: center;
   color: #fff;
   margin-bottom: 30px;
+  margin-top: 8rem;
 }
 
 .genre-list {
@@ -89,12 +90,14 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 20px;
+  list-style: none;
+  text-decoration: none;
 }
 
 .genre-item {
-  background-color: black; 
+  background-color: black;
   color: #fff;
-  padding: 12px 24px;
+  padding: 8px 18px;
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
@@ -103,28 +106,28 @@ h1 {
 }
 
 .genre-item:hover {
-  background-color: #e50914; 
+  background-color: #e50914;
 }
 
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 30px;
   justify-items: center;
 }
 
 .movie-card {
-  background-color: black; 
+  background-color: black;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
- 
-  border-radius: 0; 
+
+  border-radius: 0;
 }
 
 .movie-card:hover {
-  transform: translateY(-10px); 
+  transform: translateY(-10px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
 }
 
@@ -135,7 +138,7 @@ h1 {
 
 .movie-details {
   padding: 20px;
-  background-color: black; 
+  background-color: black;
   text-align: center;
 }
 
@@ -167,7 +170,7 @@ h1 {
 }
 
 .movie-genres span {
-  background-color: #e50914; 
+  background-color: #e50914;
   border-radius: 20px;
   padding: 5px 15px;
   color: #fff;
@@ -177,7 +180,7 @@ h1 {
 }
 
 .movie-genres span:hover {
-  background-color: #f40612; 
+  background-color: #f40612;
   box-shadow: 0 0 0.5rem rgba(229, 9, 20, 0.8);
 }
 
@@ -217,5 +220,4 @@ h1 {
     width: 100%;
   }
 }
-
 </style>
