@@ -39,7 +39,7 @@
   text-align: center;
   padding: 20px;
   background-color: #141414;
-  margin-bottom: 20rem;
+  margin-bottom: 30rem
 }
 
 
@@ -50,7 +50,7 @@
   border: 1px solid white;
   max-width: 700px;
   width: 90%;
-margin-top: 13rem;
+margin-top: 5rem;
 }
 
 
