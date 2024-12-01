@@ -131,18 +131,28 @@ button:active {
     opacity: 1;
   }
 }
+/* @media(max-width:900px){
+  .description{
+    mar
+  }
+} */
 
 @media (max-width: 768px) {
+ .content{
+  margin-top: 23rem;
+ }
+  
   h1 {
-    font-size: 2.5rem;
+    font-size: 1rem;
   }
 
   p {
-    font-size: 1.3rem;
+    font-size: 0.8rem;
   }
 
   .description {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
+    
   }
 
   button {
