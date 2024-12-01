@@ -152,21 +152,26 @@ button:active {
 }
 
 @media (max-width: 480px) {
+ 
+ .content{
+  margin-top: 18rem;
+ }
   h1 {
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 
   p {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 
   .description {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   button {
     font-size: 1rem;
     padding: 8px 16px;
   }
+
 }
 </style>

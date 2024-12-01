@@ -205,6 +205,12 @@ h1 {
 @media (max-width: 480px) {
   .movie-list {
     grid-template-columns: 1fr;
+    margin: 0 10px 0 10px;
+    padding: 5px 7px ;
+    font-size: 0.1rem;
+  }
+  p{
+    font-size: medium;
   }
 
   h1 {

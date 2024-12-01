@@ -123,12 +123,17 @@ main {
 
 @media (max-width: 480px) {
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .nav-item {
-    font-size: 0.9rem;
-  }
+    font-size: 0.5rem;
+    display: flex;
+   flex-direction: column;
+    padding: 0.3rem 0.6rem;
+    margin: auto
+   }
+  
 }
 
 
