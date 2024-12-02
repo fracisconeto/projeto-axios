@@ -1,7 +1,7 @@
 <template>
       <header>
     <div class="header-container">
-      <h1 class="title">Notflux</h1>
+     <router-link to="/" class="title">Notflux</router-link>
       <div class="nav-link">
       <nav>
         <router-link to="/" class="nav-item">Home</router-link>
@@ -29,17 +29,17 @@ header {
   right: 0;
   z-index: 1000;
   width: 100%;
+
 }
 
 
 .header-container {
   display: flex;
   align-items: center;
-
   width: 100%;
 }
 
-h1 {
+.title {
   font-size: 2rem;
   font-weight: bold;
   letter-spacing: 3px;
@@ -52,6 +52,8 @@ h1 {
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
+  text-decoration: none;
+
 
 }
 
