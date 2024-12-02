@@ -131,11 +131,7 @@ button:active {
     opacity: 1;
   }
 }
-/* @media(max-width:900px){
-  .description{
-    mar
-  }
-} */
+
 
 @media (max-width: 768px) {
  .content{
@@ -164,7 +160,7 @@ button:active {
 @media (max-width: 480px) {
  
  .content{
-  margin-top: 18rem;
+  margin-top: 2rem;
  }
   h1 {
     font-size: 1.2rem;
@@ -184,4 +180,30 @@ button:active {
   }
 
 }
+
+@media (max-width: 380px) {
+ 
+ .content{
+  margin-top: 5rem;
+ }
+  h1 {
+    font-size: 0.9rem;
+  }
+
+  p {
+    font-size: 0.75rem;
+  }
+
+  .description {
+    font-size: 0.75rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+
+}
+
+
 </style>

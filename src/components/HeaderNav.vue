@@ -124,19 +124,35 @@ main {
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 1.5rem;
+  .title {
+    font-size: 1.3rem;
   }
 
   .nav-item {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     display: flex;
-   flex-direction: column;
+    flex-direction: column;
     padding: 0.3rem 0.6rem;
     margin: auto
    }
   
 }
+@media (max-width: 380px) {
+  .title {
+    font-size: 1.rem;
+  }
+
+  .nav-item {
+    font-size: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem 0.6rem;
+    margin: auto
+   }
+  
+}
+
+
 
 
 </style>
