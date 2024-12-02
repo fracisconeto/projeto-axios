@@ -135,7 +135,7 @@ button:active {
 
 @media (max-width: 768px) {
  .content{
-  margin-top: 23rem;
+  margin-top: 2rem;
  }
   
   h1 {
@@ -160,7 +160,7 @@ button:active {
 @media (max-width: 480px) {
  
  .content{
-  margin-top: 2rem;
+  margin-top: 10rem;
  }
   h1 {
     font-size: 1.2rem;
@@ -180,11 +180,34 @@ button:active {
   }
 
 }
+@media (max-width: 420px) {
+ 
+ .content{
+  margin-top: 6rem;
+ }
+  h1 {
+    font-size: 0.9rem;
+  }
+
+  p {
+    font-size: 0.75rem;
+  }
+
+  .description {
+    font-size: 0.75rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+
+}
 
 @media (max-width: 380px) {
  
  .content{
-  margin-top: 5rem;
+  margin-top: 20rem;
  }
   h1 {
     font-size: 0.9rem;
